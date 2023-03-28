@@ -1,0 +1,33 @@
+{
+  "name": "free-bookstore-api",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "O clube do livro decidiu democratizar a leitura por meio da doação de livros já lidos. Eles desejam que outras pessoas, além dos membros do clube, possam participar das doações e também retirar livros. Para isso, foi solicitada a criação de uma API capaz de cadastrar e autenticar usuários, permitindo que eles adicionem novos livros, consultem todos os livros existentes no banco de dados, retirem livros e vejam a lista de livros que retiraram.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/T9-Driven/free-bookstore-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/T9-Driven/free-bookstore-api/issues"
+  },
+  "homepage": "https://github.com/T9-Driven/free-bookstore-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "joi": "^17.9.1",
+    "pg": "^8.10.0",
+    "uuid": "^9.0.0"
+  }
+}
