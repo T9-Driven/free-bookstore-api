@@ -1,3 +1,5 @@
+import userServices from "../services/userServices.js";
+
 async function create(req, res) {
   const { name, email, password } = req.body;
 
