@@ -1,34 +1,43 @@
-export function conflictError(message) {
+function conflictError(message) {
   return {
     name: "ConflictError",
     message,
   };
 }
 
-export function duplicatedEmailError() {
+function duplicatedEmailError(email) {
   return {
     name: "DuplicatedEmailError",
     message: "There is already an user with given email",
+    email,
   };
 }
 
-export function unauthorizedError() {
+function unauthorizedError() {
   return {
     name: "UnauthorizedError",
     message: "You must be signed in to continue",
   };
 }
 
-export function notFoundError() {
+function notFoundError() {
   return {
     name: "NotFoundError",
     message: "No result for this search!",
   };
 }
 
-export function invalidCredentialsError() {
+function invalidCredentialsError() {
   return {
     name: "InvalidCredentialsError",
     message: "Email or password are incorrect",
   };
 }
+
+export default {
+  conflictError,
+  duplicatedEmailError,
+  unauthorizedError,
+  notFoundError,
+  invalidCredentialsError,
+};

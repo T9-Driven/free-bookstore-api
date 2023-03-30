@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
 import userRepositories from "../repositories/userRepositories.js";
 import { v4 as uuidV4 } from "uuid";
-import { conflictError, invalidCredentialsError } from "../errors/index.js";
+import errors from "../errors/index.js";
 
 async function create({ name, email, password }) {
   const { rowCount } = await userRepositories.findByEmail(email);
-  if (rowCount) throw conflictError("User already exists");
+  if (rowCount) throw errors.duplicatedEmailError(email);
 
   const hashPassword = await bcrypt.hash(password, 10);
   await userRepositories.create({ name, email, password: hashPassword });
@@ -16,10 +16,10 @@ async function signin({ email, password }) {
     rowCount,
     rows: [user],
   } = await userRepositories.findByEmail(email);
-  if (!rowCount) throw invalidCredentialsError();
+  if (!rowCount) throw errors.invalidCredentialsError();
 
   const validPassword = await bcrypt.compare(password, user.password);
-  if (!validPassword) throw invalidCredentialsError();
+  if (!validPassword) throw errors.invalidCredentialsError();
 
   const token = uuidV4();
   await userRepositories.createSession({ token, userId: user.id });
