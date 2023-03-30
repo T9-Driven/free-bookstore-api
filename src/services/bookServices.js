@@ -1,4 +1,4 @@
-import bookRepositories from "../repositories/bookRepositories";
+import bookRepositories from "../repositories/bookRepositories.js";
 
 async function create({ name, author, userId }) {
   const {
@@ -6,7 +6,7 @@ async function create({ name, author, userId }) {
   } = await bookRepositories.findByName(name);
   if (book) throw new Error("Book already exists");
 
-  await bookRepositories.create(name, author, userId);
+  await bookRepositories.create({ name, author, userId });
 }
 
 export default { create };

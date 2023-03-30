@@ -1,8 +1,8 @@
-import userRepositories from "../repositories/userRepositories";
+import userRepositories from "../repositories/userRepositories.js";
 
 async function authValidation(req, res, next) {
   const { authorization } = req.headers;
-  const token = authorization.replace("Bearer ", "");
+  const token = authorization?.replace("Bearer ", "");
 
   if (!token) return res.status(401).send("No token");
 
