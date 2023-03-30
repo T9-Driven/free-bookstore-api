@@ -9,7 +9,7 @@ async function create(req, res) {
 
     return res.sendStatus(201);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(409).send(err.message);
   }
 }
 
