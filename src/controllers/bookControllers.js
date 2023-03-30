@@ -1,6 +1,6 @@
 import bookServices from "../services/bookServices.js";
 
-async function create(req, res) {
+async function create(req, res, next) {
   const { name, author } = req.body;
 
   const { id } = res.locals.user;
@@ -9,17 +9,17 @@ async function create(req, res) {
 
     return res.sendStatus(201);
   } catch (err) {
-    res.status(409).send(err.message);
+    next(err);
   }
 }
 
-async function findAll(req, res) {
+async function findAll(req, res, next) {
   try {
     const books = await bookServices.findAll();
 
     return res.send({ books });
   } catch (err) {
-    res.status(500).send(err.message);
+    next(err);
   }
 }
 
