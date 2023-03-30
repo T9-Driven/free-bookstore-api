@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import userRepositories from "../repositories/userRepositories.js";
 import { v4 as uuidV4 } from "uuid";
-import { conflictError } from "../errors/index.js";
+import { conflictError, invalidCredentialsError } from "../errors/index.js";
 
 async function create({ name, email, password }) {
   const { rowCount } = await userRepositories.findByEmail(email);
@@ -16,10 +16,10 @@ async function signin({ email, password }) {
     rowCount,
     rows: [user],
   } = await userRepositories.findByEmail(email);
-  if (!rowCount) throw new Error("Incorrect email or password");
+  if (!rowCount) throw invalidCredentialsError();
 
   const validPassword = await bcrypt.compare(password, user.password);
-  if (!validPassword) throw new Error("Incorrect email or password");
+  if (!validPassword) throw invalidCredentialsError();
 
   const token = uuidV4();
   await userRepositories.createSession({ token, userId: user.id });
