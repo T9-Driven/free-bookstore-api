@@ -17,7 +17,7 @@ async function findAll(req, res) {
   try {
     const books = await bookServices.findAll();
 
-    return res.json(books);
+    return res.send({ books });
   } catch (err) {
     res.status(500).send(err.message);
   }

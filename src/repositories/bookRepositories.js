@@ -22,7 +22,12 @@ async function findByName(name) {
 async function findAll() {
   return await connectionDb.query(
     `
-        SELECT * FROM books;
+        SELECT 
+          b.id, b.name, b.author, b.available, 
+          u.name as "createdBy"
+        FROM books b
+        JOIN users u
+        ON b."userId" = u.id;
     `
   );
 }

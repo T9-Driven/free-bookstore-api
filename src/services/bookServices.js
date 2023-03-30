@@ -10,8 +10,8 @@ async function create({ name, author, userId }) {
 }
 
 async function findAll() {
-  const { rows, rowCoutn } = await bookRepositories.findAll();
-  if (!rowCoutn) throw new Error("Not found");
+  const { rows, rowCount } = await bookRepositories.findAll();
+  if (!rowCount) throw new Error("Not found");
   return rows;
 }
 
