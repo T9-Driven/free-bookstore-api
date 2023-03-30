@@ -13,4 +13,6 @@ bookRoutes.post(
   bookControllers.create
 );
 
+bookRoutes.get("/", authMiddleware.authValidation, bookControllers.findAll);
+
 export default bookRoutes;

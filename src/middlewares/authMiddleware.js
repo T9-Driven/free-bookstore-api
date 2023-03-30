@@ -15,7 +15,7 @@ async function authValidation(req, res, next) {
     const {
       rows: [user],
     } = await userRepositories.findById(session.userId);
-    if (!user) return res.status(401).send("User not found");
+    if (!user) return res.status(404).send("User not found");
 
     res.locals.user = user;
     next();

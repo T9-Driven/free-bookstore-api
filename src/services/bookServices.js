@@ -9,4 +9,10 @@ async function create({ name, author, userId }) {
   await bookRepositories.create({ name, author, userId });
 }
 
-export default { create };
+async function findAll() {
+  const { rows, rowCoutn } = await bookRepositories.findAll();
+  if (!rowCoutn) throw new Error("Not found");
+  return rows;
+}
+
+export default { create, findAll };

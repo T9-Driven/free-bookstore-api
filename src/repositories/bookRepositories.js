@@ -19,4 +19,12 @@ async function findByName(name) {
   );
 }
 
-export default { create, findByName };
+async function findAll() {
+  return await connectionDb.query(
+    `
+        SELECT * FROM books;
+    `
+  );
+}
+
+export default { create, findByName, findAll };
