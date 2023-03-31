@@ -63,6 +63,22 @@ async function takeBook(userId, bookId) {
   );
 }
 
+async function findAllMyBooks(userId) {
+  return await connectionDb.query(
+    `
+    SELECT 
+      u.name as "user_name",
+      b.name as "book_name",
+      b.author as "book_author" 
+    FROM "myBooks" m
+      JOIN users u ON m."userId" = u.id
+      JOIN books b ON m."bookId" = b.id
+    WHERE m."userId" = $1
+    `,
+    [userId]
+  );
+}
+
 export default {
   create,
   findByName,
@@ -70,4 +86,5 @@ export default {
   findById,
   takeBook,
   updateStatusBook,
+  findAllMyBooks,
 };

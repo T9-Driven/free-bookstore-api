@@ -28,10 +28,19 @@ async function takeBook(req, res, next) {
   const bookId = +req.params.id;
   try {
     await bookServices.takeBook(id, bookId);
-    res.sendStatus(201);
+    return res.sendStatus(201);
   } catch (err) {
     next(err);
   }
 }
 
-export default { create, findAll, takeBook };
+async function findAllMyBooks(req, res, next) {
+  const { id } = res.locals.user;
+  try {
+    const books = await bookServices.findAllMyBooks(id);
+    return res.send({ books });
+  } catch (err) {
+    next(err);
+  }
+}
+export default { create, findAll, takeBook, findAllMyBooks };

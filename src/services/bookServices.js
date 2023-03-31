@@ -23,9 +23,17 @@ async function takeBook(userId, bookId) {
   } = await bookRepositories.findById(bookId);
   if (!rowCount) throw notFoundError();
   if (!book.available) throw conflictError("Book not available");
-  
+
   await bookRepositories.updateStatusBook(false, bookId);
   await bookRepositories.takeBook(userId, bookId);
 }
 
-export default { create, findAll, takeBook };
+async function findAllMyBooks(userId) {
+  const { rows: books, rowCount } = await bookRepositories.findAllMyBooks(
+    userId
+  );
+  if (!rowCount) throw notFoundError();
+  return books;
+}
+
+export default { create, findAll, takeBook, findAllMyBooks };
