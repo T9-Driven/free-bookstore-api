@@ -16,4 +16,16 @@ async function findAll() {
   return rows;
 }
 
-export default { create, findAll };
+async function takeBook(userId, bookId) {
+  const {
+    rows: [book],
+    rowCount,
+  } = await bookRepositories.findById(bookId);
+  if (!rowCount) throw notFoundError();
+  if (!book.available) throw conflictError("Book not available");
+  
+  await bookRepositories.updateStatusBook(false, bookId);
+  await bookRepositories.takeBook(userId, bookId);
+}
+
+export default { create, findAll, takeBook };

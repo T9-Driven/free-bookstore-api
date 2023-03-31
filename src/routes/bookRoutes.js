@@ -12,7 +12,11 @@ bookRoutes.post(
   validateSchema(bookSchemma),
   bookControllers.create
 );
-
 bookRoutes.get("/", authMiddleware.authValidation, bookControllers.findAll);
+bookRoutes.post(
+  "/take-book/:id",
+  authMiddleware.authValidation,
+  bookControllers.takeBook
+);
 
 export default bookRoutes;

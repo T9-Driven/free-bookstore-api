@@ -23,4 +23,15 @@ async function findAll(req, res, next) {
   }
 }
 
-export default { create, findAll };
+async function takeBook(req, res, next) {
+  const { id } = res.locals.user;
+  const bookId = +req.params.id;
+  try {
+    await bookServices.takeBook(id, bookId);
+    res.sendStatus(201);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export default { create, findAll, takeBook };
