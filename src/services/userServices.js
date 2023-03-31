@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import userRepositories from "../repositories/userRepositories.js";
 import errors from "../errors/index.js";
 import jwt from "jsonwebtoken";
-import "dotenv/config()";
+import "dotenv/config";
 
 async function create({ name, email, password }) {
   const { rowCount } = await userRepositories.findByEmail(email);
