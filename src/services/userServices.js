@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt";
 import userRepositories from "../repositories/userRepositories.js";
-import { v4 as uuidV4 } from "uuid";
 import errors from "../errors/index.js";
+import jwt from "jsonwebtoken";
+import "dotenv/config()";
 
 async function create({ name, email, password }) {
   const { rowCount } = await userRepositories.findByEmail(email);
@@ -21,8 +22,7 @@ async function signin({ email, password }) {
   const validPassword = await bcrypt.compare(password, user.password);
   if (!validPassword) throw errors.invalidCredentialsError();
 
-  const token = uuidV4();
-  await userRepositories.createSession({ token, userId: user.id });
+  const token = jwt.sign({ userId: user.id }, process.env.SECRET_JWT, { expiresIn: 86400 }); // A chave secreta é um hash SHA-256
 
   return token;
 }
